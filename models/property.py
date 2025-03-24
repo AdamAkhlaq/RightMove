@@ -23,6 +23,7 @@ class Property:
     tags: Optional[List[str]]
     council_tax_band: Optional[str]
     epc_graphs: Optional[List[Dict[str, str]]]
+    tenure: Optional[str]
 
     def to_dict(self):
         """Convert to dictionary with all fields"""
