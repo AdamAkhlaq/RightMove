@@ -24,6 +24,8 @@ class Property:
     council_tax_band: Optional[str]
     epc_graphs: Optional[List[Dict[str, str]]]
     tenure: Optional[str]
+    size_sqm: Optional[int]
+    size_sqft: Optional[int]
 
     def to_dict(self):
         """Convert to dictionary with all fields"""

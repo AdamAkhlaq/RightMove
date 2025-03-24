@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Any, List, Optional, Tuple
 from models.property import Property
 
 
@@ -13,8 +13,36 @@ def get_nested(data: Dict, path: str, default=None):
     return data
 
 
+def get_property_size(sizings_data: List[Dict[str, Any]]) -> Tuple[Optional[int], Optional[int]]:
+    """
+    Extract square meters and square feet sizes from sizings data
+    Returns: Tuple of (size_sqm, size_sqft)
+    """
+    size_sqm = None
+    size_sqft = None
+
+    for sizing in sizings_data:
+        unit = sizing.get("unit")
+        min_size = sizing.get("minimumSize")
+
+        if not unit or min_size is None:
+            continue
+
+        if unit == "sqm":
+            size_sqm = int(min_size)
+        elif unit == "sqft":
+            size_sqft = int(min_size)
+
+        # Early exit if we've found both sizes
+        if size_sqm is not None and size_sqft is not None:
+            break
+
+    return size_sqm, size_sqft
+
+
 def parse_property(data: Dict) -> Property:
     """Parse raw property data"""
+    size_sqm, size_sqft = get_property_size(get_nested(data, "sizings", []))
 
     return Property(
         id=get_nested(data, "id"),
@@ -41,5 +69,7 @@ def parse_property(data: Dict) -> Property:
         council_tax_band=get_nested(data, "livingCosts.councilTaxBand"),
         epc_graphs=[{"url": p["url"], "caption": p.get("caption")}
                     for p in get_nested(data, "epcGraphs", [])],
-        tenure=get_nested(data, "tenure.tenureType")
+        tenure=get_nested(data, "tenure.tenureType"),
+        size_sqm=size_sqm,
+        size_sqft=size_sqft
     )
