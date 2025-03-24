@@ -32,12 +32,6 @@ def parse_property(data: Dict) -> Property:
                 for p in get_nested(data, "images", [])],
         floorplans=[{"url": p["url"], "caption": p.get("caption")}
                     for p in get_nested(data, "floorplans", [])],
-        agency={
-            "id": get_nested(data, "customer.branchId"),
-            "branch": get_nested(data, "customer.branchName"),
-            "company": get_nested(data, "customer.companyName"),
-            "address": get_nested(data, "customer.displayAddress"),
-        },
         location={
             "latitude": get_nested(data, "location.latitude"),
             "longitude": get_nested(data, "location.longitude")

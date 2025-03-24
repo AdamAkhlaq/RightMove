@@ -18,7 +18,6 @@ class Property:
     features: Optional[List[str]]
     photos: Optional[List[Dict[str, str]]]
     floorplans: Optional[List[Dict[str, str]]]
-    agency: Optional[Dict[str, Any]]
     location: Optional[Dict[str, float]]
     listing_history: Optional[List[Dict[str, Any]]]
     tags: Optional[List[str]]
