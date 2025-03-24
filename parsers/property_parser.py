@@ -14,7 +14,7 @@ def get_nested(data: Dict, path: str, default=None):
 
 
 def parse_property(data: Dict) -> Property:
-    """Parse raw property data checking multiple possible council tax locations"""
+    """Parse raw property data"""
 
     return Property(
         id=get_nested(data, "id"),
@@ -44,4 +44,5 @@ def parse_property(data: Dict) -> Property:
         },
         listing_history=get_nested(data, "listingHistory", []),
         tags=get_nested(data, "tags", []),
+        council_tax_band=get_nested(data, "livingCosts.councilTaxBand")
     )
