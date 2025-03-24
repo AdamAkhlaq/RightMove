@@ -38,5 +38,7 @@ def parse_property(data: Dict) -> Property:
         },
         listing_history=get_nested(data, "listingHistory", []),
         tags=get_nested(data, "tags", []),
-        council_tax_band=get_nested(data, "livingCosts.councilTaxBand")
+        council_tax_band=get_nested(data, "livingCosts.councilTaxBand"),
+        epc_graphs=[{"url": p["url"], "caption": p.get("caption")}
+                    for p in get_nested(data, "epcGraphs", [])]
     )

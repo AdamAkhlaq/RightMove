@@ -22,6 +22,7 @@ class Property:
     listing_history: Optional[List[Dict[str, Any]]]
     tags: Optional[List[str]]
     council_tax_band: Optional[str]
+    epc_graphs: Optional[List[Dict[str, str]]]
 
     def to_dict(self):
         """Convert to dictionary with all fields"""
